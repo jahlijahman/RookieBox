@@ -55,7 +55,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout GainProcessor::createParamet
 {
   std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 
-  params.push_back(std::make_unique<juce::AudioParameterFloat> ("GAIN", "Gain", 0.0f, 1.0f, 0.6f));
+  params.push_back(std::make_unique<juce::AudioParameterFloat> ("GAIN", "Gain", 0.0f, 1.0f, 0.1f));
 
   return {params.begin(), params.end()};
 }

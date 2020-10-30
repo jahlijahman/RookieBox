@@ -18,7 +18,8 @@
 using AudioGraphIOProcessor = juce::AudioProcessorGraph::AudioGraphIOProcessor;
 using Node = juce::AudioProcessorGraph::Node;
 
-class RookieBoxAudioProcessor  : public juce::AudioProcessor
+class RookieBoxAudioProcessor  : public juce::AudioProcessor,
+                                 private juce::AudioProcessorValueTreeState::Listener
 {
 public:
     //==========================================================================
@@ -76,6 +77,7 @@ public:
     Node::Ptr slot3Node;
 
 private:
+    void parameterChanged(const juce::String &parameterID, float newValue);
 
     std::unique_ptr<juce::AudioProcessorGraph> mainProcessor;
 

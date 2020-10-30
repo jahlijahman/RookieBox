@@ -17,6 +17,9 @@ RookieBoxAudioProcessor::RookieBoxAudioProcessor()
       mainProcessor (new juce::AudioProcessorGraph()),
       parameters (*this, nullptr, "Parameters", createParameters())
 {
+  parameters.addParameterListener("SLOT1", this);
+  parameters.addParameterListener("SLOT2", this);
+  parameters.addParameterListener("SLOT3", this);
 }
 
 RookieBoxAudioProcessor::~RookieBoxAudioProcessor()
@@ -132,10 +135,13 @@ void RookieBoxAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    updateGraph();
     mainProcessor->processBlock(buffer, midiMessages);
 }
 
+void RookieBoxAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
+{
+  updateGraph();
+}
 
 //==============================================================================
 bool RookieBoxAudioProcessor::hasEditor() const
@@ -187,7 +193,7 @@ void RookieBoxAudioProcessor::connectAudioNodes()
 
 void RookieBoxAudioProcessor::updateGraph()
 {
-
+ std::cout << "update" << std::endl;
   bool hasChanged = false;
 
   juce::Array<std::atomic<float>*> choices {parameters.getRawParameterValue("SLOT1"),
@@ -247,6 +253,7 @@ void RookieBoxAudioProcessor::updateGraph()
      {
          if (slot != nullptr)
          {
+
              activeSlots.add (slot);                             // [6]
 
              slot->getProcessor()->setPlayConfigDetails (getMainBusNumInputChannels(),
@@ -263,6 +270,7 @@ void RookieBoxAudioProcessor::updateGraph()
      {
          for (int i = 0; i < activeSlots.size() - 1; ++i)        // [8]
          {
+
              for (int channel = 0; channel < 2; ++channel)
                  mainProcessor->addConnection ({ { activeSlots.getUnchecked (i)->nodeID,      channel },
                                                  { activeSlots.getUnchecked (i + 1)->nodeID,  channel } });
@@ -273,7 +281,7 @@ void RookieBoxAudioProcessor::updateGraph()
              mainProcessor->addConnection ({ { audioInputNode->nodeID,         channel },
                                              { activeSlots.getFirst()->nodeID, channel } });
              mainProcessor->addConnection ({ { activeSlots.getLast()->nodeID,  channel },
-                                             { audioOutputNode->nodeID,        channel } });
+                                             { gainNode->nodeID,        channel } });
          }
      }
 
