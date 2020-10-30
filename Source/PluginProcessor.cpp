@@ -282,6 +282,8 @@ void RookieBoxAudioProcessor::updateGraph()
                                              { activeSlots.getFirst()->nodeID, channel } });
              mainProcessor->addConnection ({ { activeSlots.getLast()->nodeID,  channel },
                                              { gainNode->nodeID,        channel } });
+             mainProcessor->addConnection ({ { gainNode->nodeID,  channel },
+                                             { audioOutputNode->nodeID,        channel } });
          }
      }
 
