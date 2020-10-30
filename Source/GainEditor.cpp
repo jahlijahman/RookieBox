@@ -14,7 +14,7 @@
 //==============================================================================
 GainEditor::GainEditor(GainProcessor& p) : AudioProcessorEditor (&p), gainProcessor (p)
 {
-    setSize (100, 100);
+    //setSize (100, 100);
 
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
     gainSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);

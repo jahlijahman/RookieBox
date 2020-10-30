@@ -64,9 +64,16 @@ public:
     void connectAudioNodes();
 
     //==========================================================================
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameters();
+
+    //==========================================================================
     std::unique_ptr<juce::AudioProcessorEditor> getEditor (Node::Ptr node);
 
     Node::Ptr gainNode;
+
+    Node::Ptr slot1Node;
+    Node::Ptr slot2Node;
+    Node::Ptr slot3Node;
 
 private:
 
@@ -74,6 +81,13 @@ private:
 
     Node::Ptr audioInputNode;
     Node::Ptr audioOutputNode;
+
+    juce::StringArray processorChoices { "Empty", "Gain"};
+
+public:
+    juce::AudioProcessorValueTreeState parameters;
+
+private:
 
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RookieBoxAudioProcessor)

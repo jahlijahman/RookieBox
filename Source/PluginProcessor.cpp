@@ -14,7 +14,8 @@ RookieBoxAudioProcessor::RookieBoxAudioProcessor()
      : AudioProcessor (BusesProperties()
                        .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
-      mainProcessor (new juce::AudioProcessorGraph())
+      mainProcessor (new juce::AudioProcessorGraph()),
+      parameters (*this, nullptr, "Parameters", createParameters())
 {
 }
 
@@ -131,11 +132,7 @@ void RookieBoxAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, ju
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    //updateGraph();
-    /*
-    auto g = parameters.getRawParameterValue("GAIN");
-    gainNode->getProcessor()->getParameters().getFirst()->setValue(g->load());
-    */
+    updateGraph();
     mainProcessor->processBlock(buffer, midiMessages);
 }
 
@@ -191,11 +188,119 @@ void RookieBoxAudioProcessor::connectAudioNodes()
 void RookieBoxAudioProcessor::updateGraph()
 {
 
+  bool hasChanged = false;
+
+  juce::Array<std::atomic<float>*> choices {parameters.getRawParameterValue("SLOT1"),
+                                            parameters.getRawParameterValue("SLOT2"),
+                                            parameters.getRawParameterValue("SLOT3") };
+
+  juce::Array<juce::RangedAudioParameter*> bypasses {parameters.getParameter("BYPASS1"),
+                                                     parameters.getParameter("BYPASS2"),
+                                                     parameters.getParameter("BYPASS3")};
+
+  juce::ReferenceCountedArray<Node> slots;
+  slots.add (slot1Node);
+  slots.add (slot2Node);
+  slots.add (slot3Node);
+
+
+
+ for (int i = 0; i < 3; ++i)
+ {
+     auto choice = choices[i]->load();
+     auto  slot   = slots  .getUnchecked (i);
+
+     if (choice == 1)            // [1]
+     {
+         if (slot != nullptr)
+         {
+             mainProcessor->removeNode (slot.get());
+             slots.set (i, nullptr);
+             hasChanged = true;
+         }
+     }
+     else if (choice == 2)       // [2]
+     {
+         if (slot != nullptr)
+         {
+             if (slot->getProcessor()->getName() == "Oscillator")
+                 continue;
+
+             mainProcessor->removeNode (slot.get());
+         }
+
+         slots.set (i, mainProcessor->addNode (std::make_unique<GainProcessor>()));
+         hasChanged = true;
+     }
+ }
+//! [updateGraph loop]
+
+//! [updateGraph connect]
+ if (hasChanged)
+ {
+     for (auto connection : mainProcessor->getConnections())     // [5]
+         mainProcessor->removeConnection (connection);
+
+     juce::ReferenceCountedArray<Node> activeSlots;
+
+     for (auto slot : slots)
+     {
+         if (slot != nullptr)
+         {
+             activeSlots.add (slot);                             // [6]
+
+             slot->getProcessor()->setPlayConfigDetails (getMainBusNumInputChannels(),
+                                                         getMainBusNumOutputChannels(),
+                                                         getSampleRate(), getBlockSize());
+         }
+     }
+
+     if (activeSlots.isEmpty())                                  // [7]
+     {
+         connectAudioNodes();
+     }
+     else
+     {
+         for (int i = 0; i < activeSlots.size() - 1; ++i)        // [8]
+         {
+             for (int channel = 0; channel < 2; ++channel)
+                 mainProcessor->addConnection ({ { activeSlots.getUnchecked (i)->nodeID,      channel },
+                                                 { activeSlots.getUnchecked (i + 1)->nodeID,  channel } });
+         }
+
+         for (int channel = 0; channel < 2; ++channel)           // [9]
+         {
+             mainProcessor->addConnection ({ { audioInputNode->nodeID,         channel },
+                                             { activeSlots.getFirst()->nodeID, channel } });
+             mainProcessor->addConnection ({ { activeSlots.getLast()->nodeID,  channel },
+                                             { audioOutputNode->nodeID,        channel } });
+         }
+     }
+
+
+     for (auto node : mainProcessor->getNodes())                 // [10]
+         node->getProcessor()->enableAllBuses();
+ }
 }
 
 std::unique_ptr<juce::AudioProcessorEditor> RookieBoxAudioProcessor::getEditor (Node::Ptr node)
 {
     return std::unique_ptr<juce::AudioProcessorEditor>( node->getProcessor()->createEditor() );
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout RookieBoxAudioProcessor::createParameters()
+{
+  std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
+
+  params.push_back(std::make_unique<juce::AudioParameterInt> ("SLOT1", "Slot 1", 1, 2, 1));
+  params.push_back(std::make_unique<juce::AudioParameterInt> ("SLOT2", "Slot 2", 1, 2, 1));
+  params.push_back(std::make_unique<juce::AudioParameterInt> ("SLOT3", "Slot 3", 1, 2, 1));
+
+  params.push_back(std::make_unique<juce::AudioParameterBool> ("BYPASS1", "Bypass 1", false));
+  params.push_back(std::make_unique<juce::AudioParameterBool> ("BYPASS2", "Bypass 1", false));
+  params.push_back(std::make_unique<juce::AudioParameterBool> ("BYPASS3", "Bypass 1", false));
+
+  return {params.begin(), params.end()};
 }
 
 //==============================================================================
