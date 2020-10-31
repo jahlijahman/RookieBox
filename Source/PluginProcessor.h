@@ -72,9 +72,11 @@ public:
 
     Node::Ptr gainNode;
 
-    Node::Ptr slot1Node;
-    Node::Ptr slot2Node;
-    Node::Ptr slot3Node;
+
+    std::unique_ptr<juce::AudioProcessorEditor> editor1;
+    std::unique_ptr<juce::AudioProcessorEditor> editor2;
+    std::unique_ptr<juce::AudioProcessorEditor> editor3;
+    juce::AudioProcessorValueTreeState parameters;
 
 private:
     void parameterChanged(const juce::String &parameterID, float newValue);
@@ -84,10 +86,9 @@ private:
     Node::Ptr audioInputNode;
     Node::Ptr audioOutputNode;
 
-    juce::StringArray processorChoices { "Empty", "Gain"};
-
-public:
-    juce::AudioProcessorValueTreeState parameters;
+    Node::Ptr slot1Node;
+    Node::Ptr slot2Node;
+    Node::Ptr slot3Node;
 
 private:
 

@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "ModuleBoxComponent.h"
 
 //==============================================================================
 /**
@@ -25,6 +26,7 @@ public:
     void resized() override;
 
     //==========================================================================
+    void editorsChanged();
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -34,10 +36,17 @@ private:
     //==========================================================================
     std::unique_ptr<juce::AudioProcessorEditor> gainEditor;
 
+    std::unique_ptr<juce::AudioProcessorEditor> node1Editor;
+    std::unique_ptr<juce::AudioProcessorEditor> node2Editor;
+    std::unique_ptr<juce::AudioProcessorEditor> node3Editor;
+
     //==========================================================================
     juce::ComboBox nodeSelektor1;
     juce::ComboBox nodeSelektor2;
     juce::ComboBox nodeSelektor3;
+
+    //==========================================================================
+    ModuleBoxComponent moduleBoxComponent {audioProcessor};
 
     //==========================================================================
     std::unique_ptr <juce::AudioProcessorValueTreeState::ComboBoxAttachment> nodeAttachment1;

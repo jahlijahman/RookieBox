@@ -17,6 +17,10 @@
     <FILE id="H5MhvJ" name="GainProcessor.cpp" compile="1" resource="0"
           file="Source/GainProcessor.cpp"/>
     <FILE id="dUTTw8" name="GainProcessor.h" compile="0" resource="0" file="Source/GainProcessor.h"/>
+    <FILE id="oGU9C9" name="ModuleBoxComponent.cpp" compile="1" resource="0"
+          file="Source/ModuleBoxComponent.cpp"/>
+    <FILE id="ZZF68R" name="ModuleBoxComponent.h" compile="0" resource="0"
+          file="Source/ModuleBoxComponent.h"/>
     <FILE id="Ahsp9Q" name="ProcessorBase.h" compile="0" resource="0" file="Source/ProcessorBase.h"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

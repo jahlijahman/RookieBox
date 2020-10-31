@@ -21,18 +21,22 @@ RookieBoxAudioProcessorEditor::RookieBoxAudioProcessorEditor (RookieBoxAudioProc
 
     nodeSelektor1.addItem("Empty", 1);
     nodeSelektor1.addItem("Gain", 2);
+    nodeSelektor1.onChange = [this] { moduleBoxComponent.editorsChanged(); };
 
     nodeSelektor2.addItem("Empty", 1);
     nodeSelektor2.addItem("Gain", 2);
+    nodeSelektor2.onChange = [this] { moduleBoxComponent.editorsChanged(); };
 
     nodeSelektor3.addItem("Empty", 1);
     nodeSelektor3.addItem("Gain", 2);
+    nodeSelektor3.onChange = [this] { moduleBoxComponent.editorsChanged(); };
 
     nodeAttachment1 = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.parameters, "SLOT1" , nodeSelektor1);
     nodeAttachment2 = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.parameters, "SLOT2" , nodeSelektor2);
     nodeAttachment3 = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.parameters, "SLOT3" , nodeSelektor3);
 
     //==========================================================================
+    addAndMakeVisible(moduleBoxComponent);
 
     gainEditor = audioProcessor.getEditor(audioProcessor.gainNode);
     addAndMakeVisible(*gainEditor);
@@ -56,4 +60,6 @@ void RookieBoxAudioProcessorEditor::resized()
   nodeSelektor1.setBounds(20, 700, 100, 20);
   nodeSelektor2.setBounds(420, 700, 100, 20);
   nodeSelektor3.setBounds(840, 700, 100, 20);
+
+  moduleBoxComponent.setBounds(10, 10, 1100, 600);
 }
