@@ -203,9 +203,7 @@ void RookieBoxAudioProcessor::updateGraph()
   juce::Array<juce::RangedAudioParameter*> bypasses {parameters.getParameter("BYPASS1"),
                                                      parameters.getParameter("BYPASS2"),
                                                      parameters.getParameter("BYPASS3")};
-  bool hasNotChanged[3] = {false, false, false};
 
-  juce::ReferenceCountedArray<Node> slots;
   slots.add (slot1Node);
   slots.add (slot2Node);
   slots.add (slot3Node);
@@ -223,10 +221,7 @@ void RookieBoxAudioProcessor::updateGraph()
              slots.set (i, nullptr);
              hasChanged = true;
          }
-         else
-         {
-           hasNotChanged[i] = true;
-         }
+
      }
      else if (choice == 2)       // [2]
      {
@@ -235,7 +230,6 @@ void RookieBoxAudioProcessor::updateGraph()
              if (slot->getProcessor()->getName() == "Gain")
              {
                continue;
-               hasNotChanged[i] = true;
              }
 
 
@@ -261,18 +255,16 @@ void RookieBoxAudioProcessor::updateGraph()
          if (slot != nullptr)
          {
             activeSlots.add (slot);                             // [6]
-            if(!hasNotChanged[j])
-            {
-              slot->getProcessor()->setPlayConfigDetails (getMainBusNumInputChannels(),
-                                                          getMainBusNumOutputChannels(),
-                                                          getSampleRate(), getBlockSize());
-              if(j==0)
+
+            slot->getProcessor()->setPlayConfigDetails (getMainBusNumInputChannels(),
+                                                        getMainBusNumOutputChannels(),
+                                                        getSampleRate(), getBlockSize());
+            if(j==0)
                 editor1 = std::unique_ptr<juce::AudioProcessorEditor>(slot->getProcessor()->createEditor());
-              if(j==1)
+            if(j==1)
                 editor2 = std::unique_ptr<juce::AudioProcessorEditor>(slot->getProcessor()->createEditor());
-              if(j==2)
+            if(j==2)
                 editor3 = std::unique_ptr<juce::AudioProcessorEditor>(slot->getProcessor()->createEditor());
-            }
 
          }
          else
@@ -283,6 +275,7 @@ void RookieBoxAudioProcessor::updateGraph()
              editor2.reset(nullptr);
            if(j==2)
              editor3.reset(nullptr);
+
          }
            ++j;
      }

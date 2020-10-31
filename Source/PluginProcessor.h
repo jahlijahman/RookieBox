@@ -89,9 +89,8 @@ private:
     Node::Ptr slot1Node;
     Node::Ptr slot2Node;
     Node::Ptr slot3Node;
-
-private:
-
+    juce::ReferenceCountedArray<Node> slots;
+    
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RookieBoxAudioProcessor)
 };
