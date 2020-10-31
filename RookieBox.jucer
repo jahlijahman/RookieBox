@@ -12,6 +12,13 @@
             file="Source/PluginEditor.cpp"/>
       <FILE id="vMnQTf" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
+    <FILE id="zR3qP6" name="FlangerEditor.cpp" compile="1" resource="0"
+          file="Source/FlangerEditor.cpp"/>
+    <FILE id="aJ0uvk" name="FlangerEditor.h" compile="0" resource="0" file="Source/FlangerEditor.h"/>
+    <FILE id="ZSIspS" name="FlangerProcessor.cpp" compile="1" resource="0"
+          file="Source/FlangerProcessor.cpp"/>
+    <FILE id="ZoGLH6" name="FlangerProcessor.h" compile="0" resource="0"
+          file="Source/FlangerProcessor.h"/>
     <FILE id="MEVH8j" name="GainEditor.cpp" compile="1" resource="0" file="Source/GainEditor.cpp"/>
     <FILE id="SJ9XJl" name="GainEditor.h" compile="0" resource="0" file="Source/GainEditor.h"/>
     <FILE id="H5MhvJ" name="GainProcessor.cpp" compile="1" resource="0"

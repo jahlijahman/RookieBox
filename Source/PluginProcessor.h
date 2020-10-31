@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "GainProcessor.h"
+#include "FlangerProcessor.h"
 
 //==============================================================================
 /**
@@ -90,7 +91,7 @@ private:
     Node::Ptr slot2Node;
     Node::Ptr slot3Node;
     juce::ReferenceCountedArray<Node> slots;
-    
+
     //==========================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RookieBoxAudioProcessor)
 };
