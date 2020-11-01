@@ -47,7 +47,6 @@ void ModuleBoxComponent::resized()
 
 void ModuleBoxComponent::editorsChanged()
 {
-
   removeAllChildren();
   if(audioProcessor.editor1 != nullptr)
   {

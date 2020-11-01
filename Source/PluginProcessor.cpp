@@ -256,6 +256,23 @@ void RookieBoxAudioProcessor::updateGraph()
          slots.set (i, mainProcessor->addNode (std::make_unique<FlangerProcessor>()));
          hasChanged = true;
      }
+
+     else if (choice == 4)       // [2]
+     {
+         if (slot != nullptr)
+         {
+             if (slot->getProcessor()->getName() == "Delay")
+             {
+               continue;
+             }
+
+
+             mainProcessor->removeNode (slot.get());
+         }
+
+         slots.set (i, mainProcessor->addNode (std::make_unique<DelayProcessor>()));
+         hasChanged = true;
+     }
    }
 //! [updateGraph loop]
 
@@ -339,9 +356,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout RookieBoxAudioProcessor::cre
 {
   std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 
-  params.push_back(std::make_unique<juce::AudioParameterInt> ("SLOT1", "Slot 1", 1, 3, 1));
-  params.push_back(std::make_unique<juce::AudioParameterInt> ("SLOT2", "Slot 2", 1, 3, 1));
-  params.push_back(std::make_unique<juce::AudioParameterInt> ("SLOT3", "Slot 3", 1, 3, 1));
+  params.push_back(std::make_unique<juce::AudioParameterInt> ("SLOT1", "Slot 1", 1, 4, 1));
+  params.push_back(std::make_unique<juce::AudioParameterInt> ("SLOT2", "Slot 2", 1, 4, 1));
+  params.push_back(std::make_unique<juce::AudioParameterInt> ("SLOT3", "Slot 3", 1, 4, 1));
 
   params.push_back(std::make_unique<juce::AudioParameterBool> ("BYPASS1", "Bypass 1", false));
   params.push_back(std::make_unique<juce::AudioParameterBool> ("BYPASS2", "Bypass 1", false));

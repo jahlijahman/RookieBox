@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "GainProcessor.h"
 #include "FlangerProcessor.h"
+#include "DelayProcessor.h"
 
 //==============================================================================
 /**

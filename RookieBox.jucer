@@ -12,6 +12,12 @@
             file="Source/PluginEditor.cpp"/>
       <FILE id="vMnQTf" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
+    <FILE id="HFrmlG" name="DelayEditor.cpp" compile="1" resource="0" file="Source/DelayEditor.cpp"/>
+    <FILE id="elPWQu" name="DelayEditor.h" compile="0" resource="0" file="Source/DelayEditor.h"/>
+    <FILE id="OS828B" name="DelayProcessor.cpp" compile="1" resource="0"
+          file="Source/DelayProcessor.cpp"/>
+    <FILE id="bQWx1h" name="DelayProcessor.h" compile="0" resource="0"
+          file="Source/DelayProcessor.h"/>
     <FILE id="zR3qP6" name="FlangerEditor.cpp" compile="1" resource="0"
           file="Source/FlangerEditor.cpp"/>
     <FILE id="aJ0uvk" name="FlangerEditor.h" compile="0" resource="0" file="Source/FlangerEditor.h"/>
