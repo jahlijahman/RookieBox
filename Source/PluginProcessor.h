@@ -12,6 +12,7 @@
 #include "GainProcessor.h"
 #include "FlangerProcessor.h"
 #include "DelayProcessor.h"
+#include "DistortionProcessor.h"
 
 //==============================================================================
 /**

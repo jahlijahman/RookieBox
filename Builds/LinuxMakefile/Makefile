@@ -108,6 +108,8 @@ OBJECTS_SHARED_CODE := \
   $(JUCE_OBJDIR)/PluginEditor_94d4fb09.o \
   $(JUCE_OBJDIR)/DelayEditor_57460b31.o \
   $(JUCE_OBJDIR)/DelayProcessor_3a10258.o \
+  $(JUCE_OBJDIR)/DistortionEditor_ec15b5f3.o \
+  $(JUCE_OBJDIR)/DistortionProcessor_56114856.o \
   $(JUCE_OBJDIR)/FlangerEditor_2721482f.o \
   $(JUCE_OBJDIR)/FlangerProcessor_7d9fbc9a.o \
   $(JUCE_OBJDIR)/GainEditor_329f4d55.o \
@@ -193,6 +195,16 @@ $(JUCE_OBJDIR)/DelayEditor_57460b31.o: ../../Source/DelayEditor.cpp
 $(JUCE_OBJDIR)/DelayProcessor_3a10258.o: ../../Source/DelayProcessor.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling DelayProcessor.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/DistortionEditor_ec15b5f3.o: ../../Source/DistortionEditor.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling DistortionEditor.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/DistortionProcessor_56114856.o: ../../Source/DistortionProcessor.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling DistortionProcessor.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_SHARED_CODE) $(JUCE_CFLAGS_SHARED_CODE) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/FlangerEditor_2721482f.o: ../../Source/FlangerEditor.cpp

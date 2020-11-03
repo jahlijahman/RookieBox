@@ -23,18 +23,21 @@ RookieBoxAudioProcessorEditor::RookieBoxAudioProcessorEditor (RookieBoxAudioProc
     nodeSelektor1.addItem("Gain", 2);
     nodeSelektor1.addItem("Flanger", 3);
     nodeSelektor1.addItem("Delay", 4);
+    nodeSelektor1.addItem("Distortion", 5);
     nodeSelektor1.onChange = [this] { moduleBoxComponent.editorsChanged(); };
 
     nodeSelektor2.addItem("Empty", 1);
     nodeSelektor2.addItem("Gain", 2);
     nodeSelektor2.addItem("Flanger", 3);
     nodeSelektor2.addItem("Delay", 4);
+    nodeSelektor2.addItem("Distortion", 5);
     nodeSelektor2.onChange = [this] { moduleBoxComponent.editorsChanged(); };
 
     nodeSelektor3.addItem("Empty", 1);
     nodeSelektor3.addItem("Gain", 2);
     nodeSelektor3.addItem("Flanger", 3);
     nodeSelektor3.addItem("Delay", 4);
+    nodeSelektor3.addItem("Distortion", 5);
     nodeSelektor3.onChange = [this] { moduleBoxComponent.editorsChanged(); };
 
     nodeAttachment1 = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.parameters, "SLOT1" , nodeSelektor1);
