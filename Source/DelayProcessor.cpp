@@ -66,7 +66,7 @@ void DelayProcessor::fillDelayBuffer(int channel, const int bufferLength, const 
         mDelayBuffer.copyFromWithRamp(channel, 0, bufferData, bufferLength - bufferRemaining, 0.8, 0.8);
     }
 }
-void DelayProcessor::getFromDelayBuffer (juce::AudioSampleBuffer& buffer, int channel, const int bufferLength, const int delayBufferLength, const float* bufferData, const float delayBufferData)
+void DelayProcessor::getFromDelayBuffer (juce::AudioSampleBuffer& buffer, int channel, const int bufferLength, const int delayBufferLength, const float* bufferData, const float* delayBufferData)
 {
     
 }
