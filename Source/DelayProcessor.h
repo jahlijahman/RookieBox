@@ -30,6 +30,9 @@ public:
     const juce::String getName() const override;
 
     juce::AudioProcessorValueTreeState parameters;
+    
+    void fillDelayBuffer (int channel, const int bufferLength, const int delayBufferLength, const float* bufferData, const float delayBufferData);
+    void getFromDelayBuffer (juce::AudioSampleBuffer& buffer, int channel, const int bufferLength, const int delayBufferLength, const float* bufferData, const float delayBufferData);
 
 private:
     juce::AudioBuffer<float> mDelayBuffer;
