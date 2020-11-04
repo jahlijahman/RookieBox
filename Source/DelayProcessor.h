@@ -37,6 +37,7 @@ public:
 private:
     juce::AudioBuffer<float> mDelayBuffer;
     int mWritePosition { 0 };
+    int mSampleRate {44100};
 
 
     //==========================================================================
