@@ -20,8 +20,7 @@ void DelayProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
 {
     const int numInputChannles = getTotalNumInputChannels();
-    const int delayBufferSize = 2 * (sampleRate * samplesPerBlock);
-    
+    const int delayBufferSize = 2 * (sampleRate + samplesPerBlock);
     
     mDelayBuffer.setSize(numInputChannles, delayBufferSize);
 
@@ -37,36 +36,40 @@ void DelayProcessor::processBlock (juce::AudioSampleBuffer& buffer, juce::MidiBu
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
     buffer.clear (i, 0, buffer.getNumSamples());
     //to here<<
-        
+    const int bufferLength = buffer.getNumSamples();
+    const int delayBufferLength = mDelayBuffer.getNumSamples();
+    
     for(int channel = 0; channel < getTotalNumInputChannels(); ++channel)
     {
-        const int bufferLength = buffer.getNumSamples();
-        const int delayBufferLength = mDelayBuffer.getNumSamples();
-        
         const float* bufferData = buffer.getReadPointer(channel);
         const float* delayBufferData = mDelayBuffer.getReadPointer(channel);
         
-        //copy the data from mainBuffer to delayBuffer
-        if (delayBufferLength > bufferLength + mWritePosition)
-        {
-            mDelayBuffer.copyFromWithRamp(channel, mWritePosition, bufferData, bufferLength, 0.8, 0.8);
-        }
-        else {
-            const int bufferRemaining = delayBufferLength - mWritePosition;
-            
-            mDelayBuffer.copyFromWithRamp(channel, mWritePosition, bufferData, bufferRemaining, 0.8, 0.8);
-            mDelayBuffer.copyFromWithRamp(channel, 0, bufferData, bufferLength - bufferRemaining, 0.8, 0.8);
-        }
-        
-        
-        
-        mWritePosition += bufferLength;
-        mWritePosition %= delayBufferLength;
+        fillDelayBuffer(channel, bufferLength, delayBufferLength, bufferData, delayBufferData);
         
     }
-
+    
+    mWritePosition += bufferLength;
+    mWritePosition %= delayBufferLength;
 }
 
+void DelayProcessor::fillDelayBuffer(int channel, const int bufferLength, const int delayBufferLength, const float* bufferData, const float* delayBufferData)
+{
+    //copy the data from mainBuffer to delayBuffer
+    if (delayBufferLength > bufferLength + mWritePosition)
+    {
+        mDelayBuffer.copyFromWithRamp(channel, mWritePosition, bufferData, bufferLength, 0.8, 0.8);
+    }
+    else {
+        const int bufferRemaining = delayBufferLength - mWritePosition;
+    
+        mDelayBuffer.copyFromWithRamp(channel, mWritePosition, bufferData, bufferRemaining, 0.8, 0.8);
+        mDelayBuffer.copyFromWithRamp(channel, 0, bufferData, bufferLength - bufferRemaining, 0.8, 0.8);
+    }
+}
+void DelayProcessor::getFromDelayBuffer (juce::AudioSampleBuffer& buffer, int channel, const int bufferLength, const int delayBufferLength, const float* bufferData, const float delayBufferData)
+{
+    
+}
 void DelayProcessor::reset()
 {
 
