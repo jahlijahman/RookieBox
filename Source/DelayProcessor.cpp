@@ -37,6 +37,7 @@ void DelayProcessor::processBlock (juce::AudioSampleBuffer& buffer, juce::MidiBu
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
     buffer.clear (i, 0, buffer.getNumSamples());
     //to here<<
+    
     const int bufferLength = buffer.getNumSamples();
     const int delayBufferLength = mDelayBuffer.getNumSamples();
     
