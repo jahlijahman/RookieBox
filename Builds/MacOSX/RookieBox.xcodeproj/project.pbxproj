@@ -89,6 +89,14 @@
 			isa = PBXBuildFile;
 			fileRef = D97BD0CF32FCE503A9D6B20F;
 		};
+		7AD473A4C302C130F479CCC7 = {
+			isa = PBXBuildFile;
+			fileRef = D4B978C91862CFFE088875CA;
+		};
+		38B0EA1858703AA60D239353 = {
+			isa = PBXBuildFile;
+			fileRef = 97E9334C8D2FCCDEB6DED7EF;
+		};
 		CB52D76909694480D0CF5B45 = {
 			isa = PBXBuildFile;
 			fileRef = D7420F02987A84D15632D578;
@@ -451,6 +459,13 @@
 			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_AU_1.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		97E9334C8D2FCCDEB6DED7EF = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = DistortionProcessor.cpp;
+			path = ../../Source/DistortionProcessor.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		A0C94DF1540C34D930263192 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -458,18 +473,11 @@
 			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp";
 			sourceTree = "SOURCE_ROOT";
 		};
-		A3F2CF562980A661BB67D429 = {
+		ABE83A8EF38D2A24C35DEA4F = {
 			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = ProcessorBase.h;
-			path = ../../Source/ProcessorBase.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		AA46C564A6EEB2B49FC1990F = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = ModuleBoxComponent.h;
-			path = ../../Source/ModuleBoxComponent.h;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_audio_formats.mm";
+			path = "../../JuceLibraryCode/include_juce_audio_formats.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
 		C9973EF935E517C37E134DC3 = {
@@ -500,11 +508,18 @@
 			path = System/Library/Frameworks/CoreAudioKit.framework;
 			sourceTree = SDKROOT;
 		};
-		ABE83A8EF38D2A24C35DEA4F = {
+		A3F2CF562980A661BB67D429 = {
 			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_juce_audio_formats.mm";
-			path = "../../JuceLibraryCode/include_juce_audio_formats.mm";
+			lastKnownFileType = sourcecode.c.h;
+			name = ProcessorBase.h;
+			path = ../../Source/ProcessorBase.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		AA46C564A6EEB2B49FC1990F = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ModuleBoxComponent.h;
+			path = ../../Source/ModuleBoxComponent.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		AECDF206BEECCCDABD5A5959 = {
@@ -542,6 +557,20 @@
 			path = "../../JuceLibraryCode/include_juce_audio_devices.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		C48CA02CBE6AD0CD71FAAC24 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = DistortionEditor.h;
+			path = ../../Source/DistortionEditor.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		C6BDB5338D46C31D6F6DAFA6 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = DistortionProcessor.h;
+			path = ../../Source/DistortionProcessor.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		CD67780FD526F24C74D3345C = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -561,6 +590,13 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = ModuleBoxComponent.cpp;
 			path = ../../Source/ModuleBoxComponent.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		D4B978C91862CFFE088875CA = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = DistortionEditor.cpp;
+			path = ../../Source/DistortionEditor.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		D54CDFBEFFC3483E49C76A23 = {
@@ -715,6 +751,10 @@
 				78A062E2377439F5AD9527DC,
 				D97BD0CF32FCE503A9D6B20F,
 				FA85D0397EA9CA26438F74EE,
+				D4B978C91862CFFE088875CA,
+				C48CA02CBE6AD0CD71FAAC24,
+				97E9334C8D2FCCDEB6DED7EF,
+				C6BDB5338D46C31D6F6DAFA6,
 				D7420F02987A84D15632D578,
 				F955BABA35DC8A7F9CB85EE2,
 				D54CDFBEFFC3483E49C76A23,
@@ -2147,6 +2187,8 @@
 				B7D048B99982513221CF59F0,
 				24534CA4BBD7A923EF2E6A75,
 				947D872EC51D1C9BF018A562,
+				7AD473A4C302C130F479CCC7,
+				38B0EA1858703AA60D239353,
 				CB52D76909694480D0CF5B45,
 				6FC1C2FA43623B65FAB8888E,
 				24B0ED62F4F1B75C6232EC24,
