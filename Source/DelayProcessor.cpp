@@ -19,12 +19,51 @@ DelayProcessor::DelayProcessor() : parameters (*this, nullptr, "Parameters", cre
 void DelayProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
 {
+    const int numInputChannles = getTotalNumInputChannels();
+    const int delayBufferSize = 2 * (sampleRate * samplesPerBlock);
+    
+    
+    mDelayBuffer.setSize(numInputChannles, delayBufferSize);
 
 }
 
 void DelayProcessor::processBlock (juce::AudioSampleBuffer& buffer, juce::MidiBuffer&)
 {
-    //Curious to see your maths ;)
+    //Not sure if I actually need this code. If it's still here then it's probably for a good reason. This includes the following code from here>>
+    juce::ScopedNoDenormals noDenormals;
+    auto totalNumInputChannels = getTotalNumInputChannels();
+    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    
+    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    buffer.clear (i, 0, buffer.getNumSamples());
+    //to here<<
+        
+    for(int channel = 0; channel < getTotalNumInputChannels(); ++channel)
+    {
+        const int bufferLength = buffer.getNumSamples();
+        const int delayBufferLength = mDelayBuffer.getNumSamples();
+        
+        const float* bufferData = buffer.getReadPointer(channel);
+        const float* delayBufferData = mDelayBuffer.getReadPointer(channel);
+        
+        //copy the data from mainBuffer to delayBuffer
+        if (delayBufferLength > bufferLength + mWritePosition)
+        {
+            mDelayBuffer.copyFromWithRamp(channel, mWritePosition, bufferData, bufferLength, 0.8, 0.8);
+        }
+        else {
+            const int bufferRemaining = delayBufferLength - mWritePosition;
+            
+            mDelayBuffer.copyFromWithRamp(channel, mWritePosition, bufferData, bufferRemaining, 0.8, 0.8);
+            mDelayBuffer.copyFromWithRamp(channel, 0, bufferData, bufferLength - bufferRemaining, 0.8, 0.8);
+        }
+        
+        
+        
+        mWritePosition += bufferLength;
+        mWritePosition %= delayBufferLength;
+        
+    }
 
 }
 
