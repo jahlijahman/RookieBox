@@ -32,7 +32,8 @@ public:
     juce::AudioProcessorValueTreeState parameters;
 
 private:
-    AudioBuffer<float> mDelayBuffer;
+    juce::AudioBuffer<float> mDelayBuffer;
+    int mWritePosition { 0 };
 
 
     //==========================================================================
