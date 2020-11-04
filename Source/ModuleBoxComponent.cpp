@@ -50,8 +50,6 @@ void ModuleBoxComponent::editorsChanged()
   removeAllChildren();
   if(audioProcessor.editor1 != nullptr)
   {
-    std::cout << "slot1 not null" << std::endl;
-
     addAndMakeVisible(*audioProcessor.editor1);
     audioProcessor.editor1->setBounds(20, 100, 100, 100);
 
@@ -59,15 +57,12 @@ void ModuleBoxComponent::editorsChanged()
 
   if(audioProcessor.editor2 != nullptr)
   {
-    std::cout << "slot2 not null" << std::endl;
-
     addAndMakeVisible(*audioProcessor.editor2);
     audioProcessor.editor2->setBounds(420, 100, 100, 100);
   }
 
   if(audioProcessor.editor3 != nullptr)
   {
-    std::cout << "slot3 not null" << std::endl;
     addAndMakeVisible(*audioProcessor.editor3);
     audioProcessor.editor3->setBounds(840, 100, 100, 100);
   }

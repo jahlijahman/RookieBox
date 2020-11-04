@@ -18,6 +18,14 @@
           file="Source/DelayProcessor.cpp"/>
     <FILE id="bQWx1h" name="DelayProcessor.h" compile="0" resource="0"
           file="Source/DelayProcessor.h"/>
+    <FILE id="xLNWTM" name="DistortionEditor.cpp" compile="1" resource="0"
+          file="Source/DistortionEditor.cpp"/>
+    <FILE id="HVtOGA" name="DistortionEditor.h" compile="0" resource="0"
+          file="Source/DistortionEditor.h"/>
+    <FILE id="MT1XXJ" name="DistortionProcessor.cpp" compile="1" resource="0"
+          file="Source/DistortionProcessor.cpp"/>
+    <FILE id="jhj5yh" name="DistortionProcessor.h" compile="0" resource="0"
+          file="Source/DistortionProcessor.h"/>
     <FILE id="zR3qP6" name="FlangerEditor.cpp" compile="1" resource="0"
           file="Source/FlangerEditor.cpp"/>
     <FILE id="aJ0uvk" name="FlangerEditor.h" compile="0" resource="0" file="Source/FlangerEditor.h"/>
